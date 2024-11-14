@@ -58,4 +58,4 @@ Un visuel pour les clients avec le menu, qui peut être changé. Visualisation d
 ### **5. Équipe projet**
 
 - **Responsable de projet :** Marc kineider
-- **Développeurs :** Marc KINEIDER, Amir GOUADJA.
+- **Développeurs :** Marc KINEIDER, Amir GOUADJELIA.
