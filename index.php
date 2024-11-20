@@ -1,5 +1,5 @@
 <?php 
     $nomMenu = array(
-        "key" => "value"
+        "M1" => "value"
 );
 ?>
