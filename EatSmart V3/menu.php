@@ -30,7 +30,7 @@ require_once("./config/header.php");
                 <div class="col">
                     <div class="card card-pack">
                         <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu["M1"];?></h4>
-                        <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
+                        <img src="../Assestss/tenders.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
                             <h5 class="card-text text-danger fs-4"><?php echo $prixMenu["M1"];?></h5>
                             <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu["M1"];?></p>
@@ -42,7 +42,7 @@ require_once("./config/header.php");
                 <div class="col">
                     <div class="card card-pack">
                         <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu["M2"];?></h4>
-                        <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
+                        <img src="../Assestss/tenders.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
                             <h5 class="card-text text-danger fs-4"><?php echo $prixMenu["M2"];?></h5>
                             <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu["M2"];?></p>
@@ -54,7 +54,7 @@ require_once("./config/header.php");
                 <div class="col">
                     <div class="card card-pack">
                         <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu["M3"];?></h4>
-                        <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
+                        <img src="../Assestss/tenders.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
                             <h5 class="card-text text-danger fs-4"><?php echo $prixMenu["M3"];?></h5>
                             <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu["M3"];?></p>
@@ -119,7 +119,7 @@ require_once("./config/header.php");
                 <div class="col">
                     <div class="card card-pack">
                         <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu["D1"];?></h4>
-                        <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
+                        <img src="../Assestss/dessert.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
                             <h5 class="card-text text-danger fs-4"><?php echo $prixMenu["D1"];?></h5>
                             <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu["D1"];?></p>
@@ -131,7 +131,7 @@ require_once("./config/header.php");
                 <div class="col">
                     <div class="card card-pack">
                         <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu["D2"];?></h4>
-                        <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
+                        <img src="../Assestss/dessert.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
                             <h5 class="card-text text-danger fs-4"><?php echo $prixMenu["D2"];?></h5>
                             <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu["D2"];?></p>
@@ -143,7 +143,7 @@ require_once("./config/header.php");
                 <div class="col">
                     <div class="card card-pack">
                         <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu["D3"];?></h4>
-                        <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
+                        <img src="../Assestss/dessert.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
                             <h5 class="card-text text-danger fs-4"><?php echo $prixMenu["D3"];?></h5>
                             <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu["D3"];?></p>
