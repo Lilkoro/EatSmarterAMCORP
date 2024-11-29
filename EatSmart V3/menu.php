@@ -13,6 +13,20 @@
 <?php 
 require_once("./config/variables.php");
 require_once("./config/header.php");
+require_once("./config/connection.php");
+
+$sql = `SELECT * FROM catégorie;`;
+$result = $con->query($sql);
+echo "aaaaaaaaaaaa".$result;
+if ($result) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    echo "Nom :" . $row["nom"];
+  }
+} else {
+  echo "0 results";
+}
+
 ?>
 <body>
 
