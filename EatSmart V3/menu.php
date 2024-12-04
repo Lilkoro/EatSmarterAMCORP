@@ -14,19 +14,23 @@
 require_once("./config/variables.php");
 require_once("./config/header.php");
 require_once("./config/connection.php");
-
-$sql = `SELECT * FROM catégorie;`;
-$result = $con->query($sql);
-echo "aaaaaaaaaaaa".$result;
-if ($result) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "Nom :" . $row["nom"];
-  }
-} else {
-  echo "0 results";
+$cat = array();
+try {
+    // Requête SQL
+    $sql = "SELECT * FROM categorie;";
+    $stmt = $con->query($sql);
+    
+    // Afficher les résultats
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($cat, $row["nom"]);
+        }
+    } else {
+        echo "Aucun résultat trouvé.";
+    }
+} catch (PDOException $e) {
+    echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
 }
-
 ?>
 <body>
 
@@ -37,7 +41,7 @@ if ($result) {
         <div class="container">
             <div class="row pt-5 pb-5">
                 <div class="col">
-                    <div class="h1 text-center text-danger-emphasis">Poulet & Bucket</div>
+                    <div class="h1 text-center text-danger-emphasis"><?php echo $cat[0]; ?></div>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-3 gy-4 pb-5">
@@ -80,7 +84,7 @@ if ($result) {
             </div>
             <div class="row pt-5 pb-5">
                 <div class="col">
-                    <div class="h1 text-center text-danger-emphasis">Burgers</div>
+                    <div class="h1 text-center text-danger-emphasis"><?php echo $cat[1]; ?></div>
                 </div>
             </div>
 
@@ -125,7 +129,7 @@ if ($result) {
 
             <div class="row pt-5 pb-5">
                 <div class="col">
-                    <div class="h1 text-center text-danger-emphasis">Desserts</div>
+                    <div class="h1 text-center text-danger-emphasis"><?php echo $cat[2]; ?></div>
                 </div>
             </div>
 
