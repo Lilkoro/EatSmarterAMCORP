@@ -1,0 +1,47 @@
+body{
+    padding-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    background:  rgb(193, 151, 151);
+    width: 75vw;
+    padding: 15px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 75vw;
+    padding: 15px;
+}
+h2{
+    color: rgb(46, 1, 77);
+}
+form{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+input{
+    margin: 5px 15px;
+    height: 25px;
+}
+textarea{
+    height: 150px;
+    margin: 5px 15px;
+
+}
+button{
+    margin: 5px 15px;
+    width: 80px;
+    background:  #0069f7;
+    padding: 3px 10px;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+}
