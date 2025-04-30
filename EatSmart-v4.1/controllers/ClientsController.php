@@ -1,25 +1,21 @@
 <?php
 require_once "../api/connection.php";
 
-function getItems() {
+function getItems()
+{
     global $con;
     $id = @$_GET["id"];
     $nom = @$_GET["nom"];
-    if(isset($nom)) {
-        echo "ici";
+    if (isset($nom)) {
         $stmt = $con->prepare("SELECT * FROM menu WHERE nom = ?");
         $stmt->execute([$nom]);
         $test = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         echo $test;
-    }
-    elseif (is_null($id) || is_nan($id)){
-        echo "icia";
+    } elseif (is_null($id) || is_nan($id)) {
         $stmt = $con->query("SELECT * FROM menu");
         $test = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         echo $test;
-    }
-    else {
-        echo "iciz";
+    } else {
         $stmt = $con->prepare("SELECT * FROM menu WHERE id = ?");
         $stmt->execute([$id]);
         $test = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
@@ -27,14 +23,16 @@ function getItems() {
     }
 }
 
-function getCategorie() {
+function getCategorie()
+{
     global $con;
     $stmt = $con->query("SELECT * FROM categorie");
     $test = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
     echo $test;
 }
 
-function createClients() {
+function createClients()
+{
     global $con;
     $input = json_decode(file_get_contents("php://input"), true);
 
@@ -50,7 +48,8 @@ function createClients() {
     echo json_encode(["message" => "Client ajouté"]);
 }
 
-function updateClients() {
+function updateClients()
+{
     global $con;
     $input = json_decode(file_get_contents("php://input"), true);
 
@@ -66,7 +65,8 @@ function updateClients() {
     echo json_encode(["message" => "Client mis à jour"]);
 }
 
-function deleteClients() {
+function deleteClients()
+{
     global $con;
     $input = json_decode(file_get_contents("php://input"), true);
 
@@ -81,4 +81,3 @@ function deleteClients() {
 
     echo json_encode(["message" => "Client supprimé"]);
 }
-?>

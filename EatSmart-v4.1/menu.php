@@ -10,25 +10,31 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<?php 
+<?php
 session_start();
 require("./config/header.php");
 require("./api/connection.php");
 
+if (!isset($_COOKIE['token'])) {
+    require("./secu/protected.php");
+}
+
 $curl = curl_init();
+// $url = 'http://localhost/Marc/EatSmart/EatSmart-v4.1/api/index.php';
+$url = "http://localhost/eatsmarter/EatSmarterAMCORP/EatSmart-v4.1/api/";
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost/Marc/EatSmart/EatSmart%20v4.1/api/index.php',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'Content-Type: application/json'
-  ),
+    CURLOPT_URL => $url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+    ),
 ));
 
 $response = curl_exec($curl);
@@ -76,18 +82,20 @@ foreach ($response as $items) {
 
 $curl = curl_init();
 
+// $url = 'http://localhost/Marc/EatSmart/EatSmart%20v4.1/api/index.php?type=categorie';
+$url = "http://localhost/eatsmarter/EatSmarterAMCORP/EatSmart-v4.1/api/index.php?type=categorie";
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost/Marc/EatSmart/EatSmart%20v4.1/api/index.php?type=categorie',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'Content-Type: application/json'
-  ),
+    CURLOPT_URL => $url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+    ),
 ));
 
 $response = curl_exec($curl);
@@ -123,7 +131,7 @@ foreach ($response as $cate) {
     array_push($cat, $cate["nom"]);
 }
 
-if(count($_SESSION) > 0){
+if (count($_SESSION) > 0) {
     $m1 = 0;
     $m2 = 0;
     $m3 = 0;
@@ -133,14 +141,10 @@ if(count($_SESSION) > 0){
     $m7 = 0;
     $m8 = 0;
     $m9 = 0;
-
-    $qte = str_split($_SESSION['panier'] ,1);
-    foreach ($qte as $key => $value) {
-        echo $key.' => '.$value;
-    }
 }
 
 ?>
+
 <body>
 
     <!-- Our Packages -->
@@ -157,36 +161,36 @@ if(count($_SESSION) > 0){
             <div class="row row-cols-1 row-cols-md-3 gy-4 pb-5">
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu[0];?></h4>
+                        <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu[0]; ?></h4>
                         <img src="../Assestss/tenders.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[0];?></h5>
-                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[0];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn1" id="btn1" form="ajoutPanier" value="<?php echo $id[0];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[0]; ?></h5>
+                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[0]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn1" id="btn1" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu[1];?></h4>
+                        <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu[1]; ?></h4>
                         <img src="../Assestss/tenders.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[1];?></h5>
-                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[1];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn2" id="btn2" form="ajoutPanier" value="<?php echo $id[1];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[1]; ?></h5>
+                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[1]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn2" id="btn2" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu[2];?></h4>
+                        <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu[2]; ?></h4>
                         <img src="../Assestss/tenders.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[2];?></h5>
-                            <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu[2];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn3" id="btn3" form="ajoutPanier" value="<?php echo $id[2];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[2]; ?></h5>
+                            <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu[2]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn3" id="btn3" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
@@ -201,36 +205,36 @@ if(count($_SESSION) > 0){
             <div class="row row-cols-1 row-cols-md-3 gy-4 pb-5">
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu[3];?></h4>
+                        <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu[3]; ?></h4>
                         <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[3];?></h5>
-                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[3];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn4" id="btn4" form="ajoutPanier" value="<?php echo $id[3];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[3]; ?></h5>
+                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[3]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn4" id="btn4" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu[4];?></h4>
+                        <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu[4]; ?></h4>
                         <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[4];?></h5>
-                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[4];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn5" id="btn5" form="ajoutPanier" value="<?php echo $id[4];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[4]; ?></h5>
+                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[4]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn5" id="btn5" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu[5];?></h4>
+                        <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu[5]; ?></h4>
                         <img src="../Assestss/10.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[5];?></h5>
-                            <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu[5];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn6" id="btn6" form="ajoutPanier" value="<?php echo $id[5];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[5]; ?></h5>
+                            <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu[5]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn6" id="btn6" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
@@ -246,36 +250,36 @@ if(count($_SESSION) > 0){
             <div class="row row-cols-1 row-cols-md-3 gy-4 pb-5">
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu[6];?></h4>
+                        <h4 class="card-title text-danger text-center text-danger pt-3 pb-3"><?php echo $nomMenu[6]; ?></h4>
                         <img src="../Assestss/dessert.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[6];?></h5>
-                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[6];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn7" id="btn7" form="ajoutPanier" value="<?php echo $id[6];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[6]; ?></h5>
+                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[6]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn7" id="btn7" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu[7];?></h4>
+                        <h4 class="card-title text-danger text-danger text-center pt-3 pb-3"><?php echo $nomMenu[7]; ?></h4>
                         <img src="../Assestss/dessert.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[7];?></h5>
-                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[7];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn8" id="btn8" form="ajoutPanier" value="<?php echo $id[7];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[7]; ?></h5>
+                            <p class="card-text text-danger pe-3 ps-3"><?php echo $descrMenu[7]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn8" id="btn8" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card card-pack">
-                        <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu[8];?></h4>
+                        <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo $nomMenu[8]; ?></h4>
                         <img src="../Assestss/dessert.png" class="card-img w-25 align-self-center" alt="Loading...">
                         <div class="card-body text-center">
-                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[8];?></h5>
-                            <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu[8];?></p>
-                            <button type="submit" form="ajoutPanier" name="btn9" id="btn9" form="ajoutPanier" value="<?php echo $id[8];?>"
+                            <h5 class="card-text text-danger fs-4"><?php echo $prixMenu[8]; ?></h5>
+                            <p class="card-text text-danger ps-3 pe-3"><?php echo $descrMenu[8]; ?></p>
+                            <button type="submit" form="ajoutPanier" name="btn9" id="btn9" form="ajoutPanier" value=1
                                 class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4">Ajout au Panier</button>
                         </div>
                     </div>
