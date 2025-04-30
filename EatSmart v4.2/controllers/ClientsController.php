@@ -31,7 +31,7 @@ function getItems() {
     }
     else {
         echo "iciz";
-        $stmt = $con->prepare("SELECT * FROM menu WHERE id = ?");
+        $stmt = $con->prepare("SELECT m.id, m.nom, prix, c.nom as nomCat, description FROM menu m INNER JOIN categorie c ON m.idCat = c.id WHERE m.id = ?");
         $stmt->execute([$id]);
         $test = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         echo $test;

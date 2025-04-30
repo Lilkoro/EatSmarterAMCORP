@@ -10,29 +10,48 @@
  */
 
 $filename = $_SERVER["SCRIPT_NAME"];
-if ($filename == "/Marc/EatSmart/EatSmart v4.1/config/plat.php") {
+if ($filename == "/Marc/EatSmart/EatSmart v4.2/config/plat.php") {
     require("../api/connection.php");
+    $img = "../../Assestss/tenders.png";
 } else {
     require("./api/connection.php");
+    $img = "./../Assestss/tenders.png";
 }
 /**
  * @brief Récupérer les menus de l'API.
  */
 $curl = curl_init();
+if(isset($_GET["id"])){
+    curl_setopt_array($curl, array(
+    CURLOPT_URL => 'http://localhost/Marc/EatSmart/EatSmart%20v4.2/api/index.php?id='.$_GET["id"],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+      'Content-Type: application/json'
+    ),
+  ));
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost/Marc/EatSmart/EatSmart%20v4.1/api/index.php',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'Content-Type: application/json'
-  ),
-));
+} else {
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://localhost/Marc/EatSmart/EatSmart%20v4.2/api/index.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json'
+        ),
+      ));
+}
+
 
 $response = curl_exec($curl);
 $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -63,7 +82,7 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 }
 
 // Initialiser les tableaux
-$menus = array( "nomMenu" => array(), "prixMenu" => array(), "description" => array() );
+$menus = array( "nomMenu" => array(), "prixMenu" => array(), "description" => array(), "nomCat" => array() );
 $cat = array();
 $id = array();
 
@@ -72,7 +91,8 @@ foreach ($response as $items) {
     array_push($id, $items["id"]);
     array_push($menus["nomMenu"], $items["nom"]);
     array_push($menus["prixMenu"], $items["prix"]);
-    array_push($menus["description"], $items["Description"]);
+    array_push($menus["description"], $items["description"]);
+    array_push($menus["nomCat"], $items["nomCat"]);
 }
 /**
  * @brief Récupérer les catégories de l'API.
@@ -80,7 +100,7 @@ foreach ($response as $items) {
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost/Marc/EatSmart/EatSmart%20v4.1/api/index.php?type=categorie',
+  CURLOPT_URL => 'http://localhost/Marc/EatSmart/EatSmart%20v4.2/api/index.php?type=categorie',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -138,7 +158,7 @@ foreach ($response as $cate) {
         <?php foreach ($cat as $catIndex => $categorie): ?>
             <div class="row pt-5 pb-5">
                 <div class="col">
-                    <div class="h1 text-center text-danger-emphasis"><?php echo htmlspecialchars($categorie); ?></div>
+                    <div class="h1 text-center text-danger-emphasis"></div>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-3 gy-4 pb-5">
@@ -150,9 +170,9 @@ foreach ($response as $cate) {
                     <div class="col">
                         <div class="card card-pack">
                             <h4 class="card-title text-danger text-center pt-3 pb-3"><?php echo html_entity_decode(htmlspecialchars($menus['nomMenu'][$menuIndex])); ?></h4>
-                            <img src="../Assestss/tenders.png" class="card-img w-25 align-self-center" alt="Loading...">
+                            <img src="<?php echo $img; ?>" class="card-img w-25 align-self-center" alt="Loading...">
                             <div class="card-body text-center">
-                                <h5 class="card-text text-danger fs-4" ><?php echo htmlspecialchars($menus['prixMenu'][$menuIndex]); ?> €</h5>
+                                <h5 class="card-text text-danger fs-4" ><?php echo htmlspecialchars($menus['prixMenu'][$menuIndex]); ?></h5>
                                 <p class="card-text text-danger pe-3 ps-3"><?php echo html_entity_decode(htmlspecialchars($menus['description'][$menuIndex])); ?></p>
                                 <button type="submit" form="ajoutPanier" name="btn<?php echo $menuIndex; ?>" id="btn<?php echo $menuIndex; ?>" value="<?php echo $menuIndex; ?>"
                                     class="btn bg-danger text-white border-0 rounded-5 pe-4 ps-4 fs-4" data-name="<?php echo html_entity_decode(htmlspecialchars($menus['nomMenu'][$menuIndex])); ?>" data-price="<?php echo htmlspecialchars($menus['prixMenu'][$menuIndex]); ?>">Ajout au Panier</button>
